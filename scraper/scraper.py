@@ -17,7 +17,6 @@ time.sleep(5)
 
 driver_path = '/usr/local/bin/geckodriver'
 
-SHORT_WAIT = 0.3
 
 url = os.environ.get('URL')
 db_url = f"postgresql://{os.environ.get('POSTGRES_USER')}:{os.environ.get('POSTGRES_PASSWORD')}@{os.environ.get('DB_HOST')}/{os.environ.get('POSTGRES_DB')}"
@@ -107,7 +106,7 @@ while True:
                     show_button = driver.find_element(By.XPATH, "//a[@class='size14 phone_show_link link-dotted mhide' and text()='показати']")
                     driver.execute_script("arguments[0].scrollIntoView(true);", show_button)
                     show_button.click()
-                    time.sleep(SHORT_WAIT)
+                    time.sleep(0.5)
 
                     popup_content = driver.page_source
                     popup_soup = BeautifulSoup(popup_content, 'html.parser')
