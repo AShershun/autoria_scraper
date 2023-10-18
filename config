@@ -1,0 +1,5 @@
+URL=https://auto.ria.com/uk/car/used/
+POSTGRES_DB=autoriadb
+POSTGRES_USER=motorist
+POSTGRES_PASSWORD=DaSaUtO
+DB_HOST=autoria_db

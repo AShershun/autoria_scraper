@@ -1,0 +1,16 @@
+FROM postgres:latest
+
+ENV POSTGRES_DB=autoriadb
+ENV POSTGRES_USER=motorist
+ENV POSTGRES_PASSWORD=DaSaUtO
+
+WORKDIR /dumps
+COPY ./scraper/dumps /dumps/
+
+COPY init.sql /docker-entrypoint-initdb.d/
+
+RUN apt update -y && apt install vim -y && apt install cron -y
+
+RUN crontab -l | { cat; echo "0 0 * * * sh /dumps/dump_db.sh"; } | crontab -
+
+EXPOSE 5432

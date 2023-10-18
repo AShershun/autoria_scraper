@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  autoria_scraper:
+    build: .
+    container_name: autoria_scraper
+    command: python scraper.py
+    volumes:
+      - ./scraper:/scraper
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      - autoria_db
+    networks:
+      - autoria_network
+    env_file:
+      - config
+
+  autoria_db:
+    build:
+      context: .
+      dockerfile: Dockerfile.psql
+    # image: postgres:latest
+    container_name: autoria_db
+    environment:
+      POSTGRES_DB: autoriadb
+      POSTGRES_USER: motorist
+      POSTGRES_PASSWORD: DaSaUtO
+    volumes:
+      - ./scraper/dumps:/dumps
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - "5434:5432"
+    networks:
+      - autoria_network
+
+networks:
+  autoria_network:
+
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.psql

@@ -1,0 +1,3 @@
+CREATE ROLE motorist WITH LOGIN PASSWORD 'DaSaUtO';
+
+CREATE DATABASE autoriadb WITH OWNER = motorist;
